@@ -1,0 +1,114 @@
+<div class="management-outer">
+    <h1 class="main-title">Branch Management</h1>
+    <br>
+    <div class="new-form-outer">
+
+        <h2 class="sub-title">Add New Branch</h2>
+
+        <form #f="ngForm" [formGroup]="form">
+            <div class="row">
+                <div class="col-12 col-sm-6 col-md-4 column">
+                    <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-label>Branch Name</mat-label>
+                        <input formControlName="branch" matInput>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-12 column">
+                    <div class="submit-button-outer">
+                        <button (click)="createBranch(f)"
+                                class="submit-button" mat-raised-button>
+                            Submit
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <br>
+    <br>
+    <div class="new-form-outer">
+
+        <h2 class="sub-title">All Branches</h2>
+
+        <div class="list-outer">
+            <div class="row row-outer">
+                <!--<div class="col-12 col-sm-4 column">
+                    <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-label>Resource Available Language</mat-label>
+                        <mat-select (selectionChange)="getSelectedResourceLanguageId($event)">
+                            <mat-option *ngFor="let language of resourceLanguages"
+                                        [value]="language?.resourceAvailableLanguageId">{{language?.language}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-12 col-sm-4 column">
+                    <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-label>Playlist Category</mat-label>
+                        <input [formControl]="playlistCategoryControl" [matAutocomplete]="auto1" matInput>
+                        <mat-autocomplete #auto1="matAutocomplete" (optionSelected)="getPlaylistCategoryId($event)">
+                            <mat-option *ngFor="let pc of playlistCategories" [value]="pc?.displayName">
+                                {{ pc?.displayName }}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                </div>-->
+            </div>
+            <br>
+            <div class="table-outer">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <td>Configuration</td>
+                        <td>Branch Id</td>
+                        <td>Branch Name</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let b of branches">
+                        <td class="table-col">
+                            <div class="td-inner">
+                                <div class="button-outer">
+                                    <button (click)="deletePopUp(b?.playListId)" class="delete-button button">
+                                        <mat-icon>delete_sweep</mat-icon>
+                                    </button>
+                                    <button class="view-in-detail-button button" (click)="viewPopUp(b?.playListId)">
+                                        <mat-icon>visibility</mat-icon>
+                                    </button>
+                                    <button (click)="editPopUp(b?.playListId)" class="update-button button">
+                                        <mat-icon>edit</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="table-col">
+                            <div class="td-inner">
+                                {{b?.playListId}}
+                            </div>
+                        </td>
+                        <td class="table-col">
+                            <div class="td-inner">
+                                {{b?.listName}}
+                            </div>
+                        </td>
+                        <td class="table-col">
+                            <div class="td-inner">
+                                {{b?.lastUpdateDate}}
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <mat-paginator (page)="pageEvent = getServerData($event)"
+                       [length]=dataCount
+                       [pageIndex]=page
+                       [pageSizeOptions]=pageSizeOptions
+                       [pageSize]=pageSize
+                       aria-label="Select page">
+        </mat-paginator>
+
+    </div>
+
+</div>

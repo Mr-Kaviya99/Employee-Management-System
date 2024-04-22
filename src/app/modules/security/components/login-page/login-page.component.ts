@@ -1,10 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {AuthService} from "../../../share/services/auth/auth.service";
-import {first} from "rxjs";
-import {HttpResponse} from "@angular/common/http";
-import {CookieManagerService} from "../../../share/services/cookie/cookie-manager.service";
 
 @Component({
   selector: 'app-login-page',
@@ -22,25 +18,26 @@ export class LoginPageComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private authService: AuthService,
-    private cookieManager: CookieManagerService) {
+    // private authService: AuthService,
+    // private cookieManager: CookieManagerService
+  ) {
   }
 
   ngOnInit(): void {
   }
 
   login() {
-
-    this.authService.login(
-      this.loginForm.get('email')?.value!,
-      this.loginForm.get('password')?.value!
-    )
-      .pipe(first())
-      .subscribe(
-        (data: HttpResponse<any>) => {
-          this.cookieManager.setToken(data.headers.get('Authorization')!);
-          this.router.navigateByUrl('/console').then()
-        });
+    this.router.navigateByUrl('/console').then()
+    // this.authService.login(
+    //   this.loginForm.get('email')?.value!,
+    //   this.loginForm.get('password')?.value!
+    // )
+    //   .pipe(first())
+    //   .subscribe(
+    //     (data: HttpResponse<any>) => {
+    //       this.cookieManager.setToken(data.headers.get('Authorization')!);
+    //       this.router.navigateByUrl('/console').then()
+    //     });
   }
 
 }

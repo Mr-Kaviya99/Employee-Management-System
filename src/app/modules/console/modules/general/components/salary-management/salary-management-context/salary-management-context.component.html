@@ -1,0 +1,120 @@
+<div class="management-outer">
+    <h1 class="main-title">Salary Management</h1>
+    <br>
+    <div class="new-form-outer">
+
+        <h2 class="sub-title">Add New Salary</h2>
+
+        <form #f="ngForm" [formGroup]="form">
+            <div class="row">
+                <div class="col-12 col-sm-6 col-md-4 column">
+                    <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-label>User Type</mat-label>
+                        <mat-select formControlName="userType">
+                            <mat-option *ngFor="let ut of userTypes" [value]="ut?.id">{{ut?.Name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4 column">
+                    <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-label>Month</mat-label>
+                        <mat-select formControlName="month">
+                            <mat-option *ngFor="let m of months" [value]="m">{{m}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4 column">
+                    <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-label>Amount</mat-label>
+                        <input matInput formControlName="amount" type="number" matTooltip="enter valid amount">
+                    </mat-form-field>
+                </div>
+
+                <div class="col-12 column">
+                    <div class="submit-button-outer">
+                        <button (click)="createSalaries(f)"
+                                class="submit-button" mat-raised-button>
+                            Submit
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <br>
+    <br>
+    <div class="new-form-outer">
+
+        <h2 class="sub-title">All Salaries</h2>
+
+        <div class="list-outer">
+            <form #f="ngForm" [formGroup]="searchForm">
+                <div class="row row-outer">
+                    <div class="col-12 col-sm-6 col-md-4 column">
+                        <mat-form-field appearance="outline" class="example-full-width">
+                            <mat-label>Month</mat-label>
+                            <mat-select formControlName="month">
+                                <mat-option *ngFor="let m of months" [value]="m">{{m}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </form>
+            <br>
+            <div class="table-outer">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <td>Configuration</td>
+                        <td>Salary Id</td>
+                        <td>Salary Name</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let s of salaries">
+                        <td class="table-col">
+                            <div class="td-inner">
+                                <div class="button-outer">
+                                    <button (click)="deletePopUp(s?.playListId)" class="delete-button button">
+                                        <mat-icon>delete_sweep</mat-icon>
+                                    </button>
+                                    <button class="view-in-detail-button button" (click)="viewPopUp(s?.playListId)">
+                                        <mat-icon>visibility</mat-icon>
+                                    </button>
+                                    <button (click)="editPopUp(s?.playListId)" class="update-button button">
+                                        <mat-icon>edit</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="table-col">
+                            <div class="td-inner">
+                                {{s?.playListId}}
+                            </div>
+                        </td>
+                        <td class="table-col">
+                            <div class="td-inner">
+                                {{s?.listName}}
+                            </div>
+                        </td>
+                        <td class="table-col">
+                            <div class="td-inner">
+                                {{s?.lastUpdateDate}}
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <mat-paginator (page)="pageEvent = getServerData($event)"
+                       [length]=dataCount
+                       [pageIndex]=page
+                       [pageSizeOptions]=pageSizeOptions
+                       [pageSize]=pageSize
+                       aria-label="Select page">
+        </mat-paginator>
+
+    </div>
+
+</div>

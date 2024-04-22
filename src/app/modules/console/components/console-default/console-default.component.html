@@ -17,51 +17,8 @@
   </div>
 
   <div class="dashboard-body">
-    <div class="dashboard-body-top-outer">
-      <div class="top-left">
-        <!--<div class="detail-cards">
-          <div class="detail-card"></div>
-&lt;!&ndash;          <div class="detail-card"></div>&ndash;&gt;
-        </div>-->
-        <h2 class="sub-title">My Courses</h2>
-        <div class="programs">
-          <div class="program-card" *ngFor="let i of getItemsCount()">
-            <app-course-card></app-course-card>
-          </div>
-        </div>
-        <mat-paginator #paginator
-                       class="demo-paginator"
-                       [length]="length"
-                       [pageSize]="pageSize"
-                       [disabled]="false"
-                       [showFirstLastButtons]="false"
-                       [pageSizeOptions]="[]"
-                       [hidePageSize]="true"
-                       [pageIndex]="pageIndex"
-                       aria-label="Select page">
-        </mat-paginator>
-      </div>
 
-      <div class="calender">
-        <div class="calender-inner">
-          <mat-calendar (selectedChange)="onDateSelected($event)"></mat-calendar>
-        </div>
-      </div>
-    </div>
 
-  </div>
-
-  <div class="calander-program-outer">
-    <div class="row" style="margin: 0;">
-      <!--<div class="col-12 col-md-8 program-outer">
-          <div class="program-inner">
-              <app-available-programs></app-available-programs>
-          </div>
-      </div>-->
-      <div class="col-12 col-md-4 calander-outer">
-
-      </div>
-    </div>
   </div>
 
 </div>
