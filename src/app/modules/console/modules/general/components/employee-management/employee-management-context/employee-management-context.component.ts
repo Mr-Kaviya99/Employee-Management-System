@@ -20,12 +20,6 @@ import {ViewEmployeeComponent} from "../view-employee/view-employee.component";
 })
 export class EmployeeManagementContextComponent implements OnInit {
 
-    page: number | undefined = 0;
-    pageSize: number | undefined = 5;
-    pageSizeOptions = [1, 2, 5, 10, 20, 30, 50];
-    dataCount = 0;
-    pageEvent: PageEvent | undefined;
-
     employees: any = [];
     branches: any;
     userTypes: any;
@@ -98,12 +92,6 @@ export class EmployeeManagementContextComponent implements OnInit {
         }, error => {
             this.snackBarService.openErrorSnackBar('Something went wrong!', 'Close');
         })
-    }
-
-    public getServerData(event?: PageEvent): any {
-        this.pageSize = event?.pageSize;
-        this.page = event?.pageIndex;
-        this.getAllEmployees();
     }
 
     createEmployee(f: FormGroupDirective) {

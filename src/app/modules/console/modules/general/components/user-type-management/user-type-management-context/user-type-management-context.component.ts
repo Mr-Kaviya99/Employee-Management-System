@@ -16,11 +16,6 @@ import {RequestUserTypeDTO} from "../../../../../../share/dto/request/RequestUse
 })
 export class UserTypeManagementContextComponent implements OnInit {
 
-    page: number | undefined = 0;
-    pageSize: number | undefined = 5;
-    pageSizeOptions = [1, 2, 5, 10, 20, 30, 50];
-    dataCount = 0;
-    pageEvent: PageEvent | undefined;
     userTypes: any;
 
     form = new FormGroup({
@@ -35,12 +30,6 @@ export class UserTypeManagementContextComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.getAllUserTypes();
-    }
-
-    public getServerData(event?: PageEvent): any {
-        this.pageSize = event?.pageSize;
-        this.page = event?.pageIndex;
         this.getAllUserTypes();
     }
 

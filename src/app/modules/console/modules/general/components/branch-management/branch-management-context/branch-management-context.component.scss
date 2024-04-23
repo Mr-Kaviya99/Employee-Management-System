@@ -22,6 +22,7 @@
   -moz-box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.75);
 }
+
 ////////////
 
 .list-outer {
@@ -134,12 +135,24 @@
   }
 }
 
+.table-outer {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
 .table {
+  width: 100%;
   margin-bottom: 0;
 
   thead {
     height: fit-content;
     background: #BDC3C7;
+
+    tr {
+      td {
+        white-space: nowrap;
+      }
+    }
 
     .td:nth-child(1) {
       width: fit-content;
@@ -150,12 +163,12 @@
     tr:hover {
       background: #ECF0F1;
     }
+
   }
 }
 
 .table-col {
   padding: 0 5px;
-  vertical-align: center;
 }
 
 
@@ -163,7 +176,7 @@
   min-height: 51px;
   display: flex;
   align-items: center;
-  gap: 3px;
+  white-space: nowrap;
 
   img {
     width: 50px;

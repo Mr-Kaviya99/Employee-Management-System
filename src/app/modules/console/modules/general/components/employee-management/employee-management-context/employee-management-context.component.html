@@ -208,17 +208,17 @@
                         </td>
                         <td class="table-col">
                             <div class="td-inner">
-                                {{e?.employeeId}}
+                                {{e?.branchName}}
                             </div>
                         </td>
                         <td class="table-col">
                             <div class="td-inner">
-                                {{e?.employeeId}}
+                                {{e?.userTypeName}}
                             </div>
                         </td>
                         <td class="table-col">
                             <div class="td-inner">
-                                {{e?.employeeId}}
+                                {{e?.employeeAddress}}
                             </div>
                         </td>
                     </tr>
@@ -226,13 +226,6 @@
                 </table>
             </div>
         </div>
-        <mat-paginator (page)="pageEvent = getServerData($event)"
-                       [length]=dataCount
-                       [pageIndex]=page
-                       [pageSizeOptions]=pageSizeOptions
-                       [pageSize]=pageSize
-                       aria-label="Select page">
-        </mat-paginator>
 
     </div>
 

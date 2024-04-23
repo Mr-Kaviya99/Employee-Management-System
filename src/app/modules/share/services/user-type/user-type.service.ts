@@ -26,4 +26,8 @@ export class UserTypeService {
     deleteUserType(propertyId: any): Observable<any> {
         return this.http.delete<any>(this.baseUrl + 'user-types/' + propertyId);
     }
+
+    getUserTypeCount(): Observable<any> {
+        return this.http.get<any>(this.baseUrl + 'user-types/get-user-type-count');
+    }
 }
