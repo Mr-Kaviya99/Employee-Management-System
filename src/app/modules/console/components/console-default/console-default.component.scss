@@ -6,7 +6,6 @@
 }
 
 .top-outer {
-
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -47,7 +46,6 @@
     justify-content: center;
   }
 
-
 }
 
 .top-bar-icon-inner:hover {
@@ -86,69 +84,54 @@
   font-family: 'Orbitron', sans-serif;
 }
 
-.dashboard-body-top-outer {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  grid-column-gap: 10px;
-  grid-row-gap: 10px;
+
+.counter-context {
+  margin: 0;
 }
 
-.detail-cards {
-  padding: 10px 0;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-column-gap: 10px;
-  grid-row-gap: 10px;
+.counter-wrapper {
+  height: auto;
+  margin-bottom: 15px;
 }
 
-.detail-card {
-  border: 1px solid brown;
+.counter-inner {
+  background-color: rgba(214, 214, 214, 0.5);
   height: 150px;
+  border-radius: 3px;
+  position: relative;
 }
 
-.calender-inner {
-  border: 0.5px solid #d6d6d6;
-  border-radius: 5px;
-}
 
-.programs {
-  padding: 10px 0;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-column-gap: 10px;
-  grid-row-gap: 10px;
-}
-
-.program-card {
-  //border: 1px solid black;
-  min-height: 150px;
-}
-
-/*
-.calander-program-outer {
+.top-data {
   width: 100%;
-  height: auto;
-  margin-top: 15px;
 
 }
 
-.program-outer {
-  padding: 0;
-  margin-bottom: 10px;
+.header-text-users {
+  color: #C0392B;
+  margin: 0 0 10px 0;
+  padding: 0 10px;
 }
 
-.program-inner {
-  height: auto;
+.title-text-users {
+  margin: 0;
+  padding: 0 10px;
+  font-size: 35px;
+}
+
+.bottom-data {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  position: absolute;
+  bottom: 0;
   width: 100%;
-  padding: 0;
+  padding: 0 10px;
+  justify-content: space-between;
 }
 
-.performance-hours-outer {
-  width: 100%;
-  height: auto;
-  margin-top: 20px;
-  min-height: 500px;
-}*/
+
+//////////////////////////
 
 .perfomance-hours-inner {
   height: auto;

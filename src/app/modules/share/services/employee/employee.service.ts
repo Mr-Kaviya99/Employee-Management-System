@@ -35,4 +35,7 @@ export class EmployeeService {
         return this.http.put<any>(this.baseUrl + 'employees/change-state?employeeId=' + propertyId + '&state=' + activeState, {});
     }
 
+    getEmployeeCount():Observable<any> {
+        return this.http.get<any>(this.baseUrl + 'employees/get-employee-count');
+    }
 }

@@ -26,4 +26,8 @@ export class BranchService {
     deleteBranch(propertyId: any): Observable<any> {
         return this.http.delete<any>(this.baseUrl + 'branch/' + propertyId);
     }
+
+    getBranchCount():Observable<any> {
+        return this.http.get<any>(this.baseUrl + 'branch/get-branch-count');
+    }
 }

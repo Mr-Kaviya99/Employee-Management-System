@@ -27,13 +27,13 @@
                 <div class="col-12 col-sm-6 col-md-4 column">
                     <mat-form-field appearance="outline" class="example-full-width">
                         <mat-label>Amount</mat-label>
-                        <input matInput formControlName="amount" type="number" matTooltip="enter valid amount">
+                        <input matInput formControlName="amount" matTooltip="enter valid amount">
                     </mat-form-field>
                 </div>
 
                 <div class="col-12 column">
                     <div class="submit-button-outer">
-                        <button (click)="createSalaries(f)"
+                        <button (click)="createSalaries(f)" [disabled]="form.invalid"
                                 class="submit-button" mat-raised-button>
                             Submit
                         </button>
@@ -123,14 +123,6 @@
                 </table>
             </div>
         </div>
-        <mat-paginator (page)="pageEvent = getServerData($event)"
-                       [length]=dataCount
-                       [pageIndex]=page
-                       [pageSizeOptions]=pageSizeOptions
-                       [pageSize]=pageSize
-                       aria-label="Select page">
-        </mat-paginator>
-
     </div>
 
 </div>
