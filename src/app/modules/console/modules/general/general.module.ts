@@ -14,6 +14,8 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatIconModule} from "@angular/material/icon";
 import {MatTooltipModule} from "@angular/material/tooltip";
+import { ViewEmployeeComponent } from './components/employee-management/view-employee/view-employee.component';
+import {MatDialogModule} from "@angular/material/dialog";
 
 
 @NgModule({
@@ -22,7 +24,8 @@ import {MatTooltipModule} from "@angular/material/tooltip";
     BranchManagementContextComponent,
     EmployeeManagementContextComponent,
     SalaryManagementContextComponent,
-    UserTypeManagementContextComponent
+    UserTypeManagementContextComponent,
+    ViewEmployeeComponent
   ],
     imports: [
         CommonModule,
@@ -33,7 +36,8 @@ import {MatTooltipModule} from "@angular/material/tooltip";
         MatButtonModule,
         MatPaginatorModule,
         MatIconModule,
-        MatTooltipModule
+        MatTooltipModule,
+        MatDialogModule
     ]
 })
 export class GeneralModule { }

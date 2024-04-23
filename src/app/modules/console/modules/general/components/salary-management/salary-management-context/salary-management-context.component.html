@@ -65,41 +65,56 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <td>Configuration</td>
                         <td>Salary Id</td>
-                        <td>Salary Name</td>
+                        <td>Employee Id</td>
+                        <td>Employee Name</td>
+                        <td>Month</td>
+                        <td>Amount</td>
+                        <td>User Type</td>
+                        <td>Branch Name</td>
+                        <td>Status</td>
                     </tr>
                     </thead>
                     <tbody>
                     <tr *ngFor="let s of salaries">
                         <td class="table-col">
                             <div class="td-inner">
-                                <div class="button-outer">
-                                    <button (click)="deletePopUp(s?.playListId)" class="delete-button button">
-                                        <mat-icon>delete_sweep</mat-icon>
-                                    </button>
-                                    <button class="view-in-detail-button button" (click)="viewPopUp(s?.playListId)">
-                                        <mat-icon>visibility</mat-icon>
-                                    </button>
-                                    <button (click)="editPopUp(s?.playListId)" class="update-button button">
-                                        <mat-icon>edit</mat-icon>
-                                    </button>
-                                </div>
+                                <!--                                {{s?.playListId}}-->
                             </div>
                         </td>
                         <td class="table-col">
                             <div class="td-inner">
-                                {{s?.playListId}}
+                                <!--                                {{s?.playListId}}-->
                             </div>
                         </td>
                         <td class="table-col">
                             <div class="td-inner">
-                                {{s?.listName}}
+                                <!--                                {{s?.playListId}}-->
                             </div>
                         </td>
                         <td class="table-col">
                             <div class="td-inner">
-                                {{s?.lastUpdateDate}}
+                                <!--                                {{s?.playListId}}-->
+                            </div>
+                        </td>
+                        <td class="table-col">
+                            <div class="td-inner">
+                                <!--                                {{s?.playListId}}-->
+                            </div>
+                        </td>
+                        <td class="table-col">
+                            <div class="td-inner">
+                                <!--                                {{s?.playListId}}-->
+                            </div>
+                        </td>
+                        <td class="table-col">
+                            <div class="td-inner">
+                                <!--                                {{s?.playListId}}-->
+                            </div>
+                        </td>
+                        <td class="table-col">
+                            <div class="td-inner">
+                                <!--                                {{s?.playListId}}-->
                             </div>
                         </td>
                     </tr>

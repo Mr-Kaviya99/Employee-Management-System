@@ -32,29 +32,6 @@
         <h2 class="sub-title">All Branches</h2>
 
         <div class="list-outer">
-            <div class="row row-outer">
-                <!--<div class="col-12 col-sm-4 column">
-                    <mat-form-field appearance="outline" class="example-full-width">
-                        <mat-label>Resource Available Language</mat-label>
-                        <mat-select (selectionChange)="getSelectedResourceLanguageId($event)">
-                            <mat-option *ngFor="let language of resourceLanguages"
-                                        [value]="language?.resourceAvailableLanguageId">{{language?.language}}</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-                <div class="col-12 col-sm-4 column">
-                    <mat-form-field appearance="outline" class="example-full-width">
-                        <mat-label>Playlist Category</mat-label>
-                        <input [formControl]="playlistCategoryControl" [matAutocomplete]="auto1" matInput>
-                        <mat-autocomplete #auto1="matAutocomplete" (optionSelected)="getPlaylistCategoryId($event)">
-                            <mat-option *ngFor="let pc of playlistCategories" [value]="pc?.displayName">
-                                {{ pc?.displayName }}
-                            </mat-option>
-                        </mat-autocomplete>
-                    </mat-form-field>
-                </div>-->
-            </div>
-            <br>
             <div class="table-outer">
                 <table class="table">
                     <thead>
@@ -69,31 +46,20 @@
                         <td class="table-col">
                             <div class="td-inner">
                                 <div class="button-outer">
-                                    <button (click)="deletePopUp(b?.playListId)" class="delete-button button">
+                                    <button (click)="deletePopUp(b?.branchId)" class="delete-button button">
                                         <mat-icon>delete_sweep</mat-icon>
-                                    </button>
-                                    <button class="view-in-detail-button button" (click)="viewPopUp(b?.playListId)">
-                                        <mat-icon>visibility</mat-icon>
-                                    </button>
-                                    <button (click)="editPopUp(b?.playListId)" class="update-button button">
-                                        <mat-icon>edit</mat-icon>
                                     </button>
                                 </div>
                             </div>
                         </td>
                         <td class="table-col">
                             <div class="td-inner">
-                                {{b?.playListId}}
+                                {{b?.branchId}}
                             </div>
                         </td>
                         <td class="table-col">
                             <div class="td-inner">
-                                {{b?.listName}}
-                            </div>
-                        </td>
-                        <td class="table-col">
-                            <div class="td-inner">
-                                {{b?.lastUpdateDate}}
+                                {{b?.branchName}}
                             </div>
                         </td>
                     </tr>
@@ -101,13 +67,6 @@
                 </table>
             </div>
         </div>
-        <mat-paginator (page)="pageEvent = getServerData($event)"
-                       [length]=dataCount
-                       [pageIndex]=page
-                       [pageSizeOptions]=pageSizeOptions
-                       [pageSize]=pageSize
-                       aria-label="Select page">
-        </mat-paginator>
 
     </div>
 

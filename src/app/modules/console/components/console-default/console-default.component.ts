@@ -1,5 +1,6 @@
 import {Component, OnInit,} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
+import {CookieManagerService} from "../../../share/services/cookie/cookie-manager.service";
 
 @Component({
   selector: 'app-console-default',
@@ -11,6 +12,7 @@ export class ConsoleDefaultComponent implements OnInit {
   selectedData: any;
 
   constructor(
+      private cookieManagerService:CookieManagerService
   ) {
 
   }
@@ -19,5 +21,6 @@ export class ConsoleDefaultComponent implements OnInit {
   }
 
   logout() {
+    this.cookieManagerService.logout();
   }
 }

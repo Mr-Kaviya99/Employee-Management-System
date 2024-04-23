@@ -2,6 +2,16 @@ import {Component, OnInit} from '@angular/core';
 import {PageEvent} from "@angular/material/paginator";
 import {FormControl, FormGroup, FormGroupDirective, Validators} from "@angular/forms";
 import {debounceTime} from "rxjs";
+import {RequestEmployeeDTO} from "../../../../../../share/dto/request/RequestEmployeeDTO";
+import {UserTypeService} from "../../../../../../share/services/user-type/user-type.service";
+import {SnackBarService} from "../../../../../../share/services/snack-bar/snack-bar.service";
+import {MatDialog} from "@angular/material/dialog";
+import {EmployeeService} from "../../../../../../share/services/employee/employee.service";
+import {BranchService} from "../../../../../../share/services/branch/branch.service";
+import {
+    ConfirmToProceedComponent
+} from "../../../../../../share/Widgets/pop-up/confirm-to-proceed/confirm-to-proceed.component";
+import {ViewEmployeeComponent} from "../view-employee/view-employee.component";
 
 @Component({
     selector: 'app-employee-management-context',
@@ -17,6 +27,8 @@ export class EmployeeManagementContextComponent implements OnInit {
     pageEvent: PageEvent | undefined;
 
     employees: any;
+    branches: any;
+    userTypes: any;
 
     branch: string = '';
     userType: string = '';
@@ -24,8 +36,8 @@ export class EmployeeManagementContextComponent implements OnInit {
     employeeAvailability: string = '';
 
     form = new FormGroup({
-        employeeName: new FormControl(null, [Validators.required]),
-        email: new FormControl(null, [Validators.required]),
+        employee: new FormControl(null, [Validators.required]),
+        email: new FormControl(null, [Validators.required, Validators.email]),
         mobile: new FormControl(null, [Validators.required]),
         house: new FormControl(null, [Validators.required]),
         street: new FormControl(null, [Validators.required]),
@@ -40,6 +52,15 @@ export class EmployeeManagementContextComponent implements OnInit {
         employmentState: new FormControl(''),
         employeeAvailability: new FormControl('')
     });
+
+    constructor(
+        private employeeService: EmployeeService,
+        private branchService: BranchService,
+        private userTypeService: UserTypeService,
+        private snackBarService: SnackBarService,
+        private dialog: MatDialog
+    ) {
+    }
 
     ngOnInit(): void {
         this.loadAllBranches();
@@ -60,11 +81,19 @@ export class EmployeeManagementContextComponent implements OnInit {
     }
 
     loadAllBranches() {
-
+        this.branchService.allBranches().subscribe(response => {
+            this.branches = response.data.playList;
+        }, error => {
+            this.snackBarService.openErrorSnackBar('Something went wrong!', 'Close');
+        })
     }
 
     loadAllUserTypes() {
-
+        this.userTypeService.allUserTypes().subscribe(response => {
+            // this.userTypes = response.data.playList;
+        }, error => {
+            this.snackBarService.openErrorSnackBar('Something went wrong!', 'Close');
+        })
     }
 
     public getServerData(event?: PageEvent): any {
@@ -74,29 +103,73 @@ export class EmployeeManagementContextComponent implements OnInit {
     }
 
     createEmployee(f: FormGroupDirective) {
-
+        let employee = new RequestEmployeeDTO(
+            this.form.get('employee')?.value!,
+            this.form.get('email')?.value!,
+            this.form.get('mobile')?.value!,
+            this.form.get('house')?.value! + ', ' + this.form.get('street')?.value! + ', ' + this.form.get('city')?.value! + ', ' + this.form.get('postal')?.value! + ', ' + this.form.get('country')?.value!,
+        )
+        this.employeeService.newEmployee(employee).subscribe(response => {
+            if (response.code === 201) {
+                this.snackBarService.openSuccessSnackBar('Success!', 'Close');
+                this.refreshForm(f);
+            }
+        })
     }
 
     getAllEmployees() {
-        /*this.playlistService.getAllPlaylists(this.playlistCategoryId,'', this.page, this.pageSize).subscribe(response => {
-            console.log(response)
-            this.playlists = response.data.playList;
-            this.dataCount = response.data.count;
+        this.employeeService.allEmployees().subscribe(response => {
+            // this.employees = response.data.playList;
         }, error => {
             this.snackBarService.openErrorSnackBar('Something went wrong!', 'Close');
-        })*/
+        })
     }
 
-    deletePopUp(playListId: any) {
+    terminatePopUp(propertyId: any) {
+        const dialogRef = this.dialog.open(ConfirmToProceedComponent);
+
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this.employeeService.changeEmployment(propertyId).subscribe(response => {
+                    console.log(response)
+                    if (response?.code == 200) {
+                        this.snackBarService.openSuccessSnackBar('Changed', 'Close');
+                        this.getAllEmployees();
+                    } else {
+                        this.snackBarService.openErrorSnackBar('Something went wrong!', 'Close');
+                    }
+                }, error => {
+                    this.snackBarService.openErrorSnackBar('Something went wrong!', 'Close');
+                })
+            }
+        });
+    }
+
+    viewPopUp(propertyId: any) {
+        this.dialog.open(ViewEmployeeComponent, {
+            data: propertyId
+        });
 
     }
 
-    viewPopUp(playListId: any) {
+    DisablePopUp(propertyId: any) {
+        const dialogRef = this.dialog.open(ConfirmToProceedComponent);
 
-    }
-
-    editPopUp(playListId: any) {
-
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this.employeeService.changeState(propertyId).subscribe(response => {
+                    console.log(response)
+                    if (response?.code == 200) {
+                        this.snackBarService.openSuccessSnackBar('Changed', 'Close');
+                        this.getAllEmployees();
+                    } else {
+                        this.snackBarService.openErrorSnackBar('Something went wrong!', 'Close');
+                    }
+                }, error => {
+                    this.snackBarService.openErrorSnackBar('Something went wrong!', 'Close');
+                })
+            }
+        });
     }
 
     private refreshForm(form: FormGroupDirective) {

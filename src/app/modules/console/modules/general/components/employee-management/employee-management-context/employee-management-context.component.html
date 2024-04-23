@@ -120,6 +120,9 @@
                 </div>
             </form>
             <br>
+            <button class="view-in-detail-button button" (click)="viewPopUp('e?.playListId')">
+                <mat-icon>visibility</mat-icon>
+            </button>
             <div class="table-outer">
                 <table class="table">
                     <thead>
@@ -140,13 +143,14 @@
                         <td class="table-col">
                             <div class="td-inner">
                                 <div class="button-outer">
-                                    <button (click)="deletePopUp(e?.playListId)" class="delete-button button">
-                                        <mat-icon>delete_sweep</mat-icon>
+                                    <button (click)="terminatePopUp(e?.playListId)" class="delete-button button">
+                                        <mat-icon>report</mat-icon>
                                     </button>
                                     <button class="view-in-detail-button button" (click)="viewPopUp(e?.playListId)">
                                         <mat-icon>visibility</mat-icon>
                                     </button>
-                                    <button (click)="editPopUp(e?.playListId)" class="update-button button">
+
+                                    <button (click)="DisablePopUp(e?.playListId)" class="update-button button">
                                         <mat-icon>edit</mat-icon>
                                     </button>
                                 </div>

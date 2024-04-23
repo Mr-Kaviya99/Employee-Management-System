@@ -1,68 +1,95 @@
 import {Component, OnInit} from '@angular/core';
 import {PageEvent} from "@angular/material/paginator";
 import {FormControl, FormGroup, FormGroupDirective, Validators} from "@angular/forms";
+import {
+    ConfirmToProceedComponent
+} from "../../../../../../share/Widgets/pop-up/confirm-to-proceed/confirm-to-proceed.component";
+import {SnackBarService} from "../../../../../../share/services/snack-bar/snack-bar.service";
+import {UserTypeService} from "../../../../../../share/services/user-type/user-type.service";
+import {MatDialog} from "@angular/material/dialog";
+import {RequestUserTypeDTO} from "../../../../../../share/dto/request/RequestUserTypeDTO";
 
 @Component({
-  selector: 'app-user-type-management-context',
-  templateUrl: './user-type-management-context.component.html',
-  styleUrls: ['./user-type-management-context.component.scss']
+    selector: 'app-user-type-management-context',
+    templateUrl: './user-type-management-context.component.html',
+    styleUrls: ['./user-type-management-context.component.scss']
 })
 export class UserTypeManagementContextComponent implements OnInit {
 
-  page: number | undefined = 0;
-  pageSize: number | undefined = 5;
-  pageSizeOptions = [1, 2, 5, 10, 20, 30, 50];
-  dataCount = 0;
-  pageEvent: PageEvent | undefined;
-  userTypes: any;
+    page: number | undefined = 0;
+    pageSize: number | undefined = 5;
+    pageSizeOptions = [1, 2, 5, 10, 20, 30, 50];
+    dataCount = 0;
+    pageEvent: PageEvent | undefined;
+    userTypes: any;
 
-  form = new FormGroup({
-    userTypeName: new FormControl(null, [Validators.required])
-  });
+    form = new FormGroup({
+        userType: new FormControl(null, [Validators.required])
+    });
 
-  ngOnInit(): void {
-    /* this.getAllResourceAvailableLanguages();
+    constructor(
+        private userTypeService: UserTypeService,
+        private snackBarService: SnackBarService,
+        private dialog: MatDialog
+    ) {
+    }
 
-     this.playlistCategoryControl.valueChanges.subscribe(value => {
-         this.playlistCategorySearchText = value;
-         this.getPlaylistCategories();
-     });*/
-  }
+    ngOnInit(): void {
+        this.getAllUserTypes();
+    }
 
-  public getServerData(event?: PageEvent): any {
-    this.pageSize = event?.pageSize;
-    this.page = event?.pageIndex;
-    this.getAllUserTypes();
-  }
+    public getServerData(event?: PageEvent): any {
+        this.pageSize = event?.pageSize;
+        this.page = event?.pageIndex;
+        this.getAllUserTypes();
+    }
 
-  createUserType(f: FormGroupDirective) {
+    createUserType(f: FormGroupDirective) {
+        let userType = new RequestUserTypeDTO(
+            this.form.get('userType')?.value!
+        )
 
-  }
+        this.userTypeService.newUserType(userType).subscribe(response => {
+            if (response.code === 201) {
+                this.snackBarService.openSuccessSnackBar('Success!', 'Close');
+                this.refreshForm(f);
+            }
+        })
+    }
 
-  private refreshForm(form: FormGroupDirective) {
-    form.resetForm();
-    form.reset();
-  }
+    getAllUserTypes() {
+        this.userTypeService.allUserTypes().subscribe(response => {
+            this.userTypes = response.data;
+        }, error => {
+            this.snackBarService.openErrorSnackBar('Something went wrong!', 'Close');
+        })
+    }
 
-  getAllUserTypes() {
-    /*this.playlistService.getAllPlaylists(this.playlistCategoryId,'', this.page, this.pageSize).subscribe(response => {
-        console.log(response)
-        this.playlists = response.data.playList;
-        this.dataCount = response.data.count;
-    }, error => {
-        this.snackBarService.openErrorSnackBar('Something went wrong!', 'Close');
-    })*/
-  }
+    deletePopUp(propertyId: any) {
+        const dialogRef = this.dialog.open(ConfirmToProceedComponent);
 
-  deletePopUp(playListId: any) {
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this.userTypeService.deleteUserType(propertyId).subscribe(response => {
+                    console.log(response)
+                    if (response?.code == 204) {
+                        this.snackBarService.openSuccessSnackBar('Deleted', 'Close');
+                        this.getAllUserTypes();
+                    } else {
+                        this.snackBarService.openErrorSnackBar('Something went wrong!', 'Close');
+                    }
+                }, error => {
+                    this.snackBarService.openErrorSnackBar('Something went wrong!', 'Close');
+                })
+            }
+        });
+    }
 
-  }
+    private refreshForm(form: FormGroupDirective) {
+        form.resetForm();
+        form.reset();
+        this.getAllUserTypes();
+    }
 
-  viewPopUp(playListId: any) {
 
-  }
-
-  editPopUp(playListId: any) {
-
-  }
 }

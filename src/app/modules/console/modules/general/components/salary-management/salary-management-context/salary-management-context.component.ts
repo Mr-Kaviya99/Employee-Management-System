@@ -2,6 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {PageEvent} from "@angular/material/paginator";
 import {FormControl, FormGroup, FormGroupDirective, Validators} from "@angular/forms";
 import {debounceTime} from "rxjs";
+import {RequestSalaryDTO} from "../../../../../../share/dto/request/RequestSalaryDTO";
+import {SnackBarService} from "../../../../../../share/services/snack-bar/snack-bar.service";
+import {MatDialog} from "@angular/material/dialog";
+import {SalaryService} from "../../../../../../share/services/salary/salary.service";
+import {UserTypeService} from "../../../../../../share/services/user-type/user-type.service";
 
 @Component({
     selector: 'app-salary-management-context',
@@ -19,30 +24,45 @@ export class SalaryManagementContextComponent implements OnInit {
     salaries: any;
     userTypes: any;
     months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    selectedMonth: any;
 
 
     form = new FormGroup({
         userType: new FormControl(null, [Validators.required]),
         month: new FormControl(null, [Validators.required]),
-        amount: new FormControl(null, [Validators.required,Validators.pattern('/[-+]?[0-9]*\\.?[0-9]+/g')])
+        amount: new FormControl(null, [Validators.required, Validators.pattern('/[-+]?[0-9]*\\.?[0-9]+/g')])
     });
 
     searchForm = new FormGroup({
         month: new FormControl('')
     });
+
+
+    constructor(
+        private salaryService: SalaryService,
+        private userTypeService: UserTypeService,
+        private snackBarService: SnackBarService,
+        private dialog: MatDialog
+    ) {
+    }
+
     ngOnInit(): void {
+        this.loadAllUserTypes();
+
         this.searchForm.valueChanges
             .pipe(debounceTime(500))
             .subscribe(data => {
                 // @ts-ignore
-                this.branch = data.branch;
-                // @ts-ignore
-                this.userType = data.userType;
-                // @ts-ignore
-                this.employmentState = data.employmentState;
-                // @ts-ignore
-                this.employeeAvailability = data.employeeAvailability;
+                this.selectedMonth = data.month;
             });
+    }
+
+    loadAllUserTypes() {
+        this.userTypeService.allUserTypes().subscribe(response => {
+            // this.userTypes = response.data.playList;
+        }, error => {
+            this.snackBarService.openErrorSnackBar('Something went wrong!', 'Close');
+        })
     }
 
     public getServerData(event?: PageEvent): any {
@@ -52,29 +72,26 @@ export class SalaryManagementContextComponent implements OnInit {
     }
 
     createSalaries(f: FormGroupDirective) {
+        let salary = new RequestSalaryDTO(
+            this.form.get('branch')?.value!,
+            this.form.get('month')?.value!,
+            this.form.get('amount')?.value!,
+        )
 
+        this.salaryService.newSalary(salary).subscribe(response => {
+            if (response.code === 201) {
+                this.snackBarService.openSuccessSnackBar('Success!', 'Close');
+                this.refreshForm(f);
+            }
+        })
     }
 
     getAllSalaries() {
-        /*this.playlistService.getAllPlaylists(this.playlistCategoryId,'', this.page, this.pageSize).subscribe(response => {
-            console.log(response)
-            this.playlists = response.data.playList;
-            this.dataCount = response.data.count;
+        this.salaryService.allSalaries().subscribe(response => {
+            // this.salaries = response.data.playList;
         }, error => {
             this.snackBarService.openErrorSnackBar('Something went wrong!', 'Close');
-        })*/
-    }
-
-    deletePopUp(playListId: any) {
-
-    }
-
-    viewPopUp(playListId: any) {
-
-    }
-
-    editPopUp(playListId: any) {
-
+        })
     }
 
     private refreshForm(form: FormGroupDirective) {

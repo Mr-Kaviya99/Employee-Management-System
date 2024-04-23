@@ -2,37 +2,34 @@ import {Injectable} from '@angular/core';
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest,} from '@angular/common/http';
 import {catchError, finalize, Observable, throwError} from 'rxjs';
 import {LoadingService} from "../services/loading/loading.service";
-import {CookieManagerService} from "../services/cookie/cookie-manager.service";
+import {SnackBarService} from "../services/snack-bar/snack-bar.service";
 
 @Injectable()
 export class HttpHandlerInterceptor implements HttpInterceptor {
 
-  constructor(private _loadingService: LoadingService, private cookieManager: CookieManagerService) {
-  }
-
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    this._loadingService.mainLoader.next(true);
-
-    if (this.cookieManager.tokenIsExists('token')){
-      // console.log(this.cookieManager.getToken())
-      request = request.clone({
-        setHeaders: { Authorization: this.cookieManager.getToken() }
-      });
+    constructor(
+        private _loadingService: LoadingService,
+        private snackBarService: SnackBarService
+    ) {
     }
 
-    return next.handle(request).pipe(
-      catchError(err => {
-        if (err.status == 401 || err.status == 403) {
-          alert('Unauthorized');
-        } else {
+    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        this._loadingService.mainLoader.next(true);
 
-        }
-        const error = err.error.message || err.statusText;
-        return throwError(error);
-      }),
-      finalize(() => {
-        this._loadingService.mainLoader.next(false);
-      })
-    );
-  }
+        return next.handle(request).pipe(
+            catchError(err => {
+                if (err.status == 401 || err.status == 403) {
+                    this.snackBarService.openErrorSnackBar('Unauthorized','close');
+                } else {
+                    this.snackBarService.openErrorSnackBar('Something went wrong!','close');
+                }
+                this.snackBarService.openErrorSnackBar('Something went wrong!','close');
+                const error = err.error.message || err.statusText;
+                return throwError(error);
+            }),
+            finalize(() => {
+                this._loadingService.mainLoader.next(false);
+            })
+        );
+    }
 }

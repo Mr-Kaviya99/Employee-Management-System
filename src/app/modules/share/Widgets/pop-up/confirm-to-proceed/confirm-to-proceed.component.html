@@ -1,1 +1,7 @@
-<p>confirm-to-proceed works!</p>
+<div class="modal-content">
+    <p id="confirmationMessage">Are you sure you want to proceed?</p>
+    <div class="button-container">
+        <button id="confirmButton" (click)="onClick(true)">Confirm</button>
+        <button id="cancelButton" (click)="onClick(false)">Cancel</button>
+    </div>
+</div>
