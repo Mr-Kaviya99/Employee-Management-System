@@ -9,6 +9,24 @@
             <div class="row">
                 <div class="col-12 col-sm-6 col-md-4 column">
                     <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-label>Branch</mat-label>
+                        <mat-select formControlName="branch">
+                            <mat-option *ngFor="let b of branches" [value]="b?.branchId">{{b?.branchName}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4 column">
+                    <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-label>User Type</mat-label>
+                        <mat-select formControlName="userType">
+                            <mat-option *ngFor="let ut of userTypes"
+                                        [value]="ut?.userTypeId">{{ut?.userTypeName}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-12"></div>
+                <div class="col-12 col-sm-6 col-md-4 column">
+                    <mat-form-field appearance="outline" class="example-full-width">
                         <mat-label>Employee Name</mat-label>
                         <input formControlName="employee" matInput>
                     </mat-form-field>
@@ -85,7 +103,8 @@
                         <mat-form-field appearance="outline" class="example-full-width">
                             <mat-label>Branch</mat-label>
                             <mat-select formControlName="branch">
-                                <mat-option value="ALL">All</mat-option>
+                                <mat-option *ngFor="let b of branches"
+                                            [value]="b?.branchId">{{b?.branchName}}</mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
@@ -93,7 +112,8 @@
                         <mat-form-field appearance="outline" class="example-full-width">
                             <mat-label>User Type</mat-label>
                             <mat-select formControlName="userType">
-                                <mat-option value="ALL">All</mat-option>
+                                <mat-option *ngFor="let ut of userTypes"
+                                            [value]="ut?.userTypeId">{{ut?.userTypeName}}</mat-option>
                             </mat-select>
                         </mat-form-field>
                     </div>
@@ -120,9 +140,6 @@
                 </div>
             </form>
             <br>
-            <button class="view-in-detail-button button" (click)="viewPopUp('e?.playListId')">
-                <mat-icon>visibility</mat-icon>
-            </button>
             <div class="table-outer">
                 <table class="table">
                     <thead>
@@ -132,7 +149,8 @@
                         <td>Name</td>
                         <td>Email</td>
                         <td>mobile</td>
-                        <td>status</td>
+                        <td>Employment Status</td>
+                        <td>Active State</td>
                         <td>Branch</td>
                         <td>user Type</td>
                         <td>Address</td>
@@ -143,71 +161,64 @@
                         <td class="table-col">
                             <div class="td-inner">
                                 <div class="button-outer">
-                                    <button (click)="terminatePopUp(e?.playListId)" class="delete-button button">
-                                        <mat-icon>report</mat-icon>
+                                    <button (click)="terminatePopUp(e?.employeeId,e?.employmentState)"
+                                            class="delete-button button">
+                                        <mat-icon>{{e?.employmentState ? 'report' : 'play_arrow'}}</mat-icon>
                                     </button>
-                                    <button class="view-in-detail-button button" (click)="viewPopUp(e?.playListId)">
+                                    <button class="view-in-detail-button button" (click)="viewPopUp(e?.employeeId)">
                                         <mat-icon>visibility</mat-icon>
                                     </button>
 
-                                    <button (click)="DisablePopUp(e?.playListId)" class="update-button button">
-                                        <mat-icon>edit</mat-icon>
+                                    <button (click)="DisablePopUp(e?.employeeId,e?.activeState)"
+                                            class="update-button button">
+                                        <mat-icon>{{e?.activeState ? 'close' : 'done'}}close</mat-icon>
                                     </button>
                                 </div>
                             </div>
                         </td>
                         <td class="table-col">
                             <div class="td-inner">
-<!--                                {{e?.playListId}}-->
-                                data
+                                {{e?.employeeId}}
                             </div>
                         </td>
                         <td class="table-col">
                             <div class="td-inner">
-<!--                                {{e?.playListId}}-->
-                                data
+                                {{e?.employeeName}}
                             </div>
                         </td>
                         <td class="table-col">
                             <div class="td-inner">
-<!--                                {{e?.playListId}}-->
-                                data
+                                {{e?.employeeEmail}}
                             </div>
                         </td>
                         <td class="table-col">
                             <div class="td-inner">
-<!--                                {{e?.playListId}}-->
-                                data
+                                {{e?.employeeMobile}}
                             </div>
                         </td>
                         <td class="table-col">
                             <div class="td-inner">
-<!--                                {{e?.playListId}}-->
-                                data
+                                {{e?.employmentState ? 'Employed' : 'Terminated'}}
                             </div>
                         </td>
                         <td class="table-col">
                             <div class="td-inner">
-<!--                                {{e?.playListId}}-->
-                                data
+                                {{e?.activeState ? 'Active' : 'Inactive'}}
                             </div>
                         </td>
                         <td class="table-col">
                             <div class="td-inner">
-<!--                                {{e?.playListId}}-->
-                                data
+                                {{e?.employeeId}}
                             </div>
                         </td>
                         <td class="table-col">
                             <div class="td-inner">
-<!--                                {{e?.playListId}}-->
-                                data
+                                {{e?.employeeId}}
                             </div>
                         </td>
                         <td class="table-col">
                             <div class="td-inner">
-<!--                                {{e?.playListId}}-->
-                                data
+                                {{e?.employeeId}}
                             </div>
                         </td>
                     </tr>

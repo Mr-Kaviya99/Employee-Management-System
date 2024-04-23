@@ -1,16 +1,23 @@
 .modal-content {
   background-color: #fefefe;
-  margin: 15% auto;
   padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
-  max-width: 600px;
+  width: 100%;
   border-radius: 5px;
 }
 
+.icon-outer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.sub-title {
+  color: navy;
+  font-weight: 500;
+  font-size: 18px;
+}
+
 .close {
-  color: #aaa;
-  float: right;
+  color: navy;
   font-size: 28px;
   font-weight: bold;
 }
@@ -20,4 +27,20 @@
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+
+.data-wrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-column-gap: 15px;
+  grid-row-gap: 20px;
+}
+
+.data-outer {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-column-gap: 10px;
+  h2,p{
+    margin: 0;
+  }
 }

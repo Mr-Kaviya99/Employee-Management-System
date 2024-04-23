@@ -26,16 +26,18 @@ export class EmployeeManagementContextComponent implements OnInit {
     dataCount = 0;
     pageEvent: PageEvent | undefined;
 
-    employees: any;
+    employees: any = [];
     branches: any;
     userTypes: any;
 
     branch: string = '';
     userType: string = '';
-    employmentState: string = '';
-    employeeAvailability: string = '';
+    employmentState: string = 'ALL';
+    employeeAvailability: string = 'ALL';
 
     form = new FormGroup({
+        branch: new FormControl(null, [Validators.required]),
+        userType: new FormControl(null, [Validators.required]),
         employee: new FormControl(null, [Validators.required]),
         email: new FormControl(null, [Validators.required, Validators.email]),
         mobile: new FormControl(null, [Validators.required]),
@@ -49,8 +51,8 @@ export class EmployeeManagementContextComponent implements OnInit {
     searchForm = new FormGroup({
         branch: new FormControl(''),
         userType: new FormControl(''),
-        employmentState: new FormControl(''),
-        employeeAvailability: new FormControl('')
+        employmentState: new FormControl(this.employmentState),
+        employeeAvailability: new FormControl(this.employeeAvailability)
     });
 
     constructor(
@@ -65,6 +67,7 @@ export class EmployeeManagementContextComponent implements OnInit {
     ngOnInit(): void {
         this.loadAllBranches();
         this.loadAllUserTypes();
+        this.getAllEmployees();
 
         this.searchForm.valueChanges
             .pipe(debounceTime(500))
@@ -77,12 +80,13 @@ export class EmployeeManagementContextComponent implements OnInit {
                 this.employmentState = data.employmentState;
                 // @ts-ignore
                 this.employeeAvailability = data.employeeAvailability;
+                this.getAllEmployees();
             });
     }
 
     loadAllBranches() {
         this.branchService.allBranches().subscribe(response => {
-            this.branches = response.data.playList;
+            this.branches = response.data;
         }, error => {
             this.snackBarService.openErrorSnackBar('Something went wrong!', 'Close');
         })
@@ -90,7 +94,7 @@ export class EmployeeManagementContextComponent implements OnInit {
 
     loadAllUserTypes() {
         this.userTypeService.allUserTypes().subscribe(response => {
-            // this.userTypes = response.data.playList;
+            this.userTypes = response.data;
         }, error => {
             this.snackBarService.openErrorSnackBar('Something went wrong!', 'Close');
         })
@@ -103,13 +107,16 @@ export class EmployeeManagementContextComponent implements OnInit {
     }
 
     createEmployee(f: FormGroupDirective) {
+        const branchId = this.form.get('branch')?.value!;
+        const userTypeId = this.form.get('userType')?.value!;
+
         let employee = new RequestEmployeeDTO(
             this.form.get('employee')?.value!,
             this.form.get('email')?.value!,
             this.form.get('mobile')?.value!,
             this.form.get('house')?.value! + ', ' + this.form.get('street')?.value! + ', ' + this.form.get('city')?.value! + ', ' + this.form.get('postal')?.value! + ', ' + this.form.get('country')?.value!,
         )
-        this.employeeService.newEmployee(employee).subscribe(response => {
+        this.employeeService.newEmployee(employee, branchId, userTypeId).subscribe(response => {
             if (response.code === 201) {
                 this.snackBarService.openSuccessSnackBar('Success!', 'Close');
                 this.refreshForm(f);
@@ -118,19 +125,19 @@ export class EmployeeManagementContextComponent implements OnInit {
     }
 
     getAllEmployees() {
-        this.employeeService.allEmployees().subscribe(response => {
-            // this.employees = response.data.playList;
+        this.employeeService.allEmployees(this.employmentState, this.employeeAvailability, this.branch, this.userType).subscribe(response => {
+            this.employees = response.data;
         }, error => {
             this.snackBarService.openErrorSnackBar('Something went wrong!', 'Close');
         })
     }
 
-    terminatePopUp(propertyId: any) {
+    terminatePopUp(propertyId: any, employmentState: boolean) {
         const dialogRef = this.dialog.open(ConfirmToProceedComponent);
 
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                this.employeeService.changeEmployment(propertyId).subscribe(response => {
+                this.employeeService.changeEmployment(propertyId, !employmentState).subscribe(response => {
                     console.log(response)
                     if (response?.code == 200) {
                         this.snackBarService.openSuccessSnackBar('Changed', 'Close');
@@ -147,17 +154,18 @@ export class EmployeeManagementContextComponent implements OnInit {
 
     viewPopUp(propertyId: any) {
         this.dialog.open(ViewEmployeeComponent, {
-            data: propertyId
+            data: propertyId,
+            width: '800px'
         });
 
     }
 
-    DisablePopUp(propertyId: any) {
+    DisablePopUp(propertyId: any, activeState: boolean) {
         const dialogRef = this.dialog.open(ConfirmToProceedComponent);
 
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                this.employeeService.changeState(propertyId).subscribe(response => {
+                this.employeeService.changeState(propertyId, !activeState).subscribe(response => {
                     console.log(response)
                     if (response?.code == 200) {
                         this.snackBarService.openSuccessSnackBar('Changed', 'Close');

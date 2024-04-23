@@ -29,7 +29,7 @@ export class ViewEmployeeComponent implements OnInit {
 
     getEmployeeById() {
         this.employeeService.getById(this.selectedPropertyId).subscribe(response => {
-            // this.employee = response.data.playList;
+            this.employee = response.data;
         }, error => {
             this.snackBarService.openErrorSnackBar('Something went wrong!', 'Close');
         })

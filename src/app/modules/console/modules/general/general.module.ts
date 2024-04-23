@@ -9,7 +9,7 @@ import { SalaryManagementContextComponent } from './components/salary-management
 import { UserTypeManagementContextComponent } from './components/user-type-management/user-type-management-context/user-type-management-context.component';
 import {MatInputModule} from "@angular/material/input";
 import {MatSelectModule} from "@angular/material/select";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatButtonModule} from "@angular/material/button";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatIconModule} from "@angular/material/icon";
@@ -37,7 +37,8 @@ import {MatDialogModule} from "@angular/material/dialog";
         MatPaginatorModule,
         MatIconModule,
         MatTooltipModule,
-        MatDialogModule
+        MatDialogModule,
+        FormsModule
     ]
 })
 export class GeneralModule { }

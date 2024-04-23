@@ -24,7 +24,7 @@ export class SalaryManagementContextComponent implements OnInit {
     salaries: any;
     userTypes: any;
     months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-    selectedMonth: any;
+    selectedMonth: string = '';
 
 
     form = new FormGroup({
@@ -48,18 +48,20 @@ export class SalaryManagementContextComponent implements OnInit {
 
     ngOnInit(): void {
         this.loadAllUserTypes();
+        this.getAllSalaries();
 
         this.searchForm.valueChanges
             .pipe(debounceTime(500))
             .subscribe(data => {
                 // @ts-ignore
                 this.selectedMonth = data.month;
+                this.getAllSalaries()
             });
     }
 
     loadAllUserTypes() {
         this.userTypeService.allUserTypes().subscribe(response => {
-            // this.userTypes = response.data.playList;
+            this.userTypes = response.data;
         }, error => {
             this.snackBarService.openErrorSnackBar('Something went wrong!', 'Close');
         })
@@ -72,14 +74,14 @@ export class SalaryManagementContextComponent implements OnInit {
     }
 
     createSalaries(f: FormGroupDirective) {
+        const userType = this.form.get('userType')?.value!;
         let salary = new RequestSalaryDTO(
-            this.form.get('branch')?.value!,
             this.form.get('month')?.value!,
             this.form.get('amount')?.value!,
         )
 
-        this.salaryService.newSalary(salary).subscribe(response => {
-            if (response.code === 201) {
+        this.salaryService.newSalary(salary, userType).subscribe(response => {
+            if (response.code === 200) {
                 this.snackBarService.openSuccessSnackBar('Success!', 'Close');
                 this.refreshForm(f);
             }
@@ -87,8 +89,9 @@ export class SalaryManagementContextComponent implements OnInit {
     }
 
     getAllSalaries() {
-        this.salaryService.allSalaries().subscribe(response => {
-            // this.salaries = response.data.playList;
+        this.salaryService.allSalaries(this.selectedMonth).subscribe(response => {
+            this.salaries = response.data;
+            console.log(this.salaries)
         }, error => {
             this.snackBarService.openErrorSnackBar('Something went wrong!', 'Close');
         })
@@ -97,6 +100,7 @@ export class SalaryManagementContextComponent implements OnInit {
     private refreshForm(form: FormGroupDirective) {
         form.resetForm();
         form.reset();
+        this.getAllSalaries();
     }
 }
 

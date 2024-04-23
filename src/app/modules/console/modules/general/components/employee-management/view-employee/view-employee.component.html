@@ -1,7 +1,45 @@
 <div class="modal-content">
-    <span class="close" (click)="onClick(false)">&times;</span>
-    <div class="data-outer">
-        <h2>Item Details</h2>
-        <p></p>
+    <div class="icon-outer">
+        <h2 class="sub-title">View Employee</h2>
+        <span class="close" (click)="onClick(false)">&times;</span>
+    </div>
+
+    <div class="data-wrapper">
+        <div class="data-outer">
+            <h2>Employee Id</h2>
+            <p>: {{employee?.employeeId}}</p>
+        </div>
+        <div class="data-outer">
+            <h2>Employee Name</h2>
+            <p>: {{employee?.employeeName}}</p>
+        </div>
+        <div class="data-outer">
+            <h2>Email</h2>
+            <p>: {{employee?.employeeEmail}}</p>
+        </div>
+        <div class="data-outer">
+            <h2>Mobile</h2>
+            <p>: {{employee?.employeeMobile}}</p>
+        </div>
+        <div class="data-outer">
+            <h2>User Type</h2>
+            <p>: {{employee?.userTypeName}}</p>
+        </div>
+        <div class="data-outer">
+            <h2>Branch</h2>
+            <p>: {{employee?.branchName}}</p>
+        </div>
+        <div class="data-outer">
+            <h2>Employment Status</h2>
+            <p>: {{employee?.employmentState ? 'Employed' : 'Terminated'}}</p>
+        </div>
+        <div class="data-outer">
+            <h2>Availability</h2>
+            <p>: {{employee?.activeState ? 'Active' : 'Inactive'}}</p>
+        </div>
+        <div class="data-outer">
+            <h2>Address</h2>
+            <p>: {{employee?.employeeAddress}}</p>
+        </div>
     </div>
 </div>
