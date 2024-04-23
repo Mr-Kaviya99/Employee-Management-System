@@ -1,7 +1,7 @@
 # **Employee management System**
 
 * Frontend(Angular) :- https://github.com/Mr-Kaviya99/Employee-Management-Sysytem.git
-* Backend(SpringB) :- https://github.com/Mr-Kaviya99/Employee-Management-System-API.git
+* Backend(SpringBoot) :- https://github.com/Mr-Kaviya99/Employee-Management-System-API.git
 * 
 ## Login Credentials
 
