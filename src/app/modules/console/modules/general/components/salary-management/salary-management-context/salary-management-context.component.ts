@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {PageEvent} from "@angular/material/paginator";
 import {FormControl, FormGroup, FormGroupDirective, Validators} from "@angular/forms";
 import {debounceTime} from "rxjs";
 import {RequestSalaryDTO} from "../../../../../../share/dto/request/RequestSalaryDTO";

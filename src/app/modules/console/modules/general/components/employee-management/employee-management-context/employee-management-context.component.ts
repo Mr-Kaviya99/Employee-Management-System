@@ -33,12 +33,12 @@ export class EmployeeManagementContextComponent implements OnInit {
         branch: new FormControl(null, [Validators.required]),
         userType: new FormControl(null, [Validators.required]),
         employee: new FormControl(null, [Validators.required]),
-        email: new FormControl(null, [Validators.required, Validators.email]),
-        mobile: new FormControl(null, [Validators.required]),
+        email: new FormControl(null, [Validators.required, Validators.email,Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$')]),
+        mobile: new FormControl(null, [Validators.required,Validators.pattern('^\\+?\\d{1,3}\\s?[-.\\(]?\\d{2,3}[-.\\)]?\\s?\\d{3}[-.]?\\d{4}$')]),
         house: new FormControl(null, [Validators.required]),
         street: new FormControl(null, [Validators.required]),
         city: new FormControl(null, [Validators.required]),
-        postal: new FormControl(null, [Validators.required]),
+        postal: new FormControl(null, [Validators.required,Validators.pattern('^[a-zA-Z0-9\\s-]{2,10}$')]),
         country: new FormControl(null, [Validators.required])
     });
 
