@@ -1,6 +1,6 @@
 <div class="outer">
 
-  <img *ngIf="!expanded" alt="logo" class="logo" src="https://ipasrilanka.com/assets/images/logo/ipacurved.png">
+  <!--  <h2 class="logo">Employee Management</h2>-->
 
   <div (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()" [ngStyle]="{'width':expanded?'280px':'70px'}"
        class="left"
@@ -11,34 +11,8 @@
           <mat-icon>menu</mat-icon>
         </div>
         <div *ngIf="expanded" class="logo-outer">
-          <img class="logo-expanded"  alt="logo" src="https://ipasrilanka.com/assets/images/logo/ipacurved.png">
+          <h2>Employee Management</h2>
         </div>
-      </div>
-
-      <div [ngStyle]="{'display':expanded?'flex':''}" class="avatar-outer">
-
-        <div class="avatar-inner">
-          <input
-            #fileInput
-            (change)="onFileSelected($event)"
-            accept="image/*"
-            style="display: none"
-            type="file"
-          />
-          <img alt="profile pick" src="{{profileAvatar}}">
-          <div (click)="fileInput.click()" class="add-image-outer">
-            <mat-icon>edit</mat-icon>
-          </div>
-        </div>
-
-        <div *ngIf="expanded" class="user-details-outer">
-          <h1 #tooltip="matTooltip" class="name"
-              matTooltip="{{selectedData?.fullName}}"
-              matTooltipHideDelay="300">{{selectedData?.fullName.toString().substring(0, 15)}}<span
-            *ngIf="selectedData?.fullName.length>15">...</span></h1>
-          <h4 class="nic">{{selectedData?.nic}}</h4>
-        </div>
-
       </div>
 
       <ul [ngStyle]="{'display':expanded?'block':''}" class="menu-wrapper">
@@ -50,141 +24,40 @@
             Dashboard
           </div>
         </li>
-        <li class="list-inner" routerLink="/process/home" routerLinkActive="active">
-          <div class="icon-outer">
-            <mat-icon class="nav-icon">home</mat-icon>
-          </div>
-          <div *ngIf="expanded" class="nav-context">
-            Main Page
-          </div>
-        </li>
-        <li class="list-inner" routerLink="/console/playground/general-activities/all-courses"
+        <li class="list-inner" routerLink="/console/playground/general/branch"
             routerLinkActive="active">
           <div class="icon-outer">
-            <mat-icon class="nav-icon">shop</mat-icon>
+            <mat-icon class="nav-icon">account_tree</mat-icon>
           </div>
           <div *ngIf="expanded" class="nav-context">
-            All Courses
+            Branch Management
           </div>
         </li>
-        <li class="list-inner" routerLink="/console/playground/general-activities/my-courses"
+        <li class="list-inner" routerLink="/console/playground/general/user-type"
             routerLinkActive="active">
           <div class="icon-outer">
-            <mat-icon class="nav-icon">video_library</mat-icon>
+            <mat-icon class="nav-icon">category</mat-icon>
           </div>
           <div *ngIf="expanded" class="nav-context">
-            My Courses
+            User Type Management
           </div>
         </li>
-
-        <li class="list-inner" routerLink="/console/playground/general-activities/my-payments"
+        <li class="list-inner" routerLink="/console/playground/general/employee"
+            routerLinkActive="active">
+          <div class="icon-outer">
+            <mat-icon class="nav-icon">manage_accounts</mat-icon>
+          </div>
+          <div *ngIf="expanded" class="nav-context">
+            Employee Management
+          </div>
+        </li>
+        <li class="list-inner" routerLink="/console/playground/general/salary"
             routerLinkActive="active">
           <div class="icon-outer">
             <mat-icon class="nav-icon">paid</mat-icon>
           </div>
           <div *ngIf="expanded" class="nav-context">
-            Payment Process
-          </div>
-        </li>
-
-       <!-- <li class="list-inner" routerLink="/console/playground/general-activities/time-table" routerLinkActive="active">
-          <div class="icon-outer">
-            <mat-icon class="nav-icon">view_timeline</mat-icon>
-          </div>
-          <div *ngIf="expanded" class="nav-context">
-            Time Table
-          </div>
-        </li>
-
-        <li class="list-inner" routerLink="/console/playground/general-activities/testimonials"
-            routerLinkActive="active">
-          <div class="icon-outer">
-            <mat-icon class="nav-icon">loyalty</mat-icon>
-          </div>
-          <div *ngIf="expanded" class="nav-context">
-            Testimonials
-          </div>
-        </li>
-
-        <li class="list-inner" routerLink="/console/playground/general-activities/notification"
-            routerLinkActive="active">
-          <div class="icon-outer">
-            <mat-icon class="nav-icon">notifications</mat-icon>
-          </div>
-          <div *ngIf="expanded" class="nav-context">
-            Notifications
-          </div>
-        </li>
-
-        <li class="list-inner" routerLink="/console/playground/general-activities/consultation"
-            routerLinkActive="active">
-          <div class="icon-outer">
-            <mat-icon class="nav-icon">headset_mic</mat-icon>
-          </div>
-          <div *ngIf="expanded" class="nav-context">
-            Consultation
-          </div>
-        </li>
-
-        <li class="list-inner" routerLink="/console/playground/general-activities/mock-interviews"
-            routerLinkActive="active">
-          <div class="icon-outer">
-            <mat-icon class="nav-icon">video_call</mat-icon>
-          </div>
-          <div *ngIf="expanded" class="nav-context">
-            Mock Interviews
-          </div>
-        </li>
-
-        <li class="list-inner" routerLink="/console/playground/general-activities/internships"
-            routerLinkActive="active">
-          <div class="icon-outer">
-            <mat-icon class="nav-icon">work</mat-icon>
-          </div>
-          <div *ngIf="expanded" class="nav-context">
-            Internships
-          </div>
-        </li>
-
-        <li class="list-inner" routerLink="/process/jobs" routerLinkActive="active">
-          <div class="icon-outer">
-            <mat-icon class="nav-icon">integration_instructions</mat-icon>
-          </div>
-          <div *ngIf="expanded" class="nav-context">
-            Available Jobs
-          </div>
-        </li>-->
-        <li class="list-inner" routerLink="/console/playground/general-activities/assignments"
-            routerLinkActive="active">
-          <div class="icon-outer">
-            <mat-icon class="nav-icon">document_scanner</mat-icon>
-          </div>
-          <div *ngIf="expanded" class="nav-context">
-            Assignments
-          </div>
-        </li>
-       <!-- <li class="list-inner" routerLink="/process/events/events-manager/all-events" routerLinkActive="active">
-          <div class="icon-outer">
-            <mat-icon class="nav-icon">event_available</mat-icon>
-          </div>
-          <div *ngIf="expanded" class="nav-context">
-            Events
-          </div>
-        </li>
-        <li class="list-inner" routerLink="/console/playground/general-activities/forum" routerLinkActive="active">
-          <div class="icon-outer">
-            <mat-icon class="nav-icon">forum</mat-icon>
-          </div>
-          <div *ngIf="expanded" class="nav-context">
-            Forum
-          </div>
-        </li>-->
-        <li class="list-inner" routerLink="/console/playground/general-activities/my-profile" routerLinkActive="active">
-          <div class="icon-outer">
-            <mat-icon class="nav-icon">settings</mat-icon>
-          </div>
-          <div *ngIf="expanded" class="nav-context">
-            Settings
+            Salary Management
           </div>
         </li>
 

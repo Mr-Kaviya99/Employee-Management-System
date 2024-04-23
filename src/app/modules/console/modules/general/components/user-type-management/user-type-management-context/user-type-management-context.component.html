@@ -1,0 +1,80 @@
+<div class="management-outer">
+    <h1 class="main-title">User Type Management</h1>
+    <br>
+    <div class="new-form-outer">
+
+        <h2 class="sub-title">Add New User Type</h2>
+
+        <form #f="ngForm" [formGroup]="form">
+            <div class="row">
+                <div class="col-12 col-sm-6 col-md-4 column">
+                    <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-label>User Type Name</mat-label>
+                        <input formControlName="userType" matInput>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-12 column">
+                    <div class="submit-button-outer">
+                        <button (click)="createUserType(f)"
+                                class="submit-button" mat-raised-button>
+                            Submit
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <br>
+    <br>
+    <div class="new-form-outer">
+
+        <h2 class="sub-title">All User Types</h2>
+
+        <div class="list-outer">
+            <div class="table-outer">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <td>Configuration</td>
+                        <td>User Type Id</td>
+                        <td>User Type Name</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let ut of userTypes">
+                        <td class="table-col">
+                            <div class="td-inner">
+                                <div class="button-outer">
+                                    <button (click)="deletePopUp(ut?.userTypeId)" class="delete-button button">
+                                        <mat-icon>delete_sweep</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="table-col">
+                            <div class="td-inner">
+                                {{ut?.userTypeId}}
+                            </div>
+                        </td>
+                        <td class="table-col">
+                            <div class="td-inner">
+                                {{ut?.userTypeName}}
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <mat-paginator (page)="pageEvent = getServerData($event)"
+                       [length]=dataCount
+                       [pageIndex]=page
+                       [pageSizeOptions]=pageSizeOptions
+                       [pageSize]=pageSize
+                       aria-label="Select page">
+        </mat-paginator>
+
+    </div>
+
+</div>

@@ -1,0 +1,33 @@
+.modal-content {
+  background-color: #fefefe;
+  //margin: 20% auto;
+  max-width: 600px;
+  padding: 25px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.button-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+button {
+  padding: 10px 20px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button#confirmButton {
+  background-color: #16A085;
+  color: #fff;
+}
+
+button#cancelButton {
+  background-color: #C0392B;
+  color: #fff;
+}

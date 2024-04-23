@@ -1,0 +1,239 @@
+<div class="management-outer">
+    <h1 class="main-title">Employee Management</h1>
+    <br>
+    <div class="new-form-outer">
+
+        <h2 class="sub-title">Add New Employee</h2>
+
+        <form #f="ngForm" [formGroup]="form">
+            <div class="row">
+                <div class="col-12 col-sm-6 col-md-4 column">
+                    <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-label>Branch</mat-label>
+                        <mat-select formControlName="branch">
+                            <mat-option *ngFor="let b of branches" [value]="b?.branchId">{{b?.branchName}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4 column">
+                    <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-label>User Type</mat-label>
+                        <mat-select formControlName="userType">
+                            <mat-option *ngFor="let ut of userTypes"
+                                        [value]="ut?.userTypeId">{{ut?.userTypeName}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-12"></div>
+                <div class="col-12 col-sm-6 col-md-4 column">
+                    <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-label>Employee Name</mat-label>
+                        <input formControlName="employee" matInput>
+                    </mat-form-field>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4 column">
+                    <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-label>Email</mat-label>
+                        <input formControlName="email" matInput>
+                    </mat-form-field>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4 column">
+                    <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-label>Mobile No</mat-label>
+                        <input formControlName="mobile" matInput>
+                    </mat-form-field>
+                </div>
+                <br>
+                <p>Address Details</p>
+
+                <div class="col-12 col-sm-6 col-md-4 column">
+                    <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-label>House/Apartment</mat-label>
+                        <input formControlName="house" matInput>
+                    </mat-form-field>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4 column">
+                    <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-label>Street/Avenue</mat-label>
+                        <input formControlName="street" matInput>
+                    </mat-form-field>
+                </div>
+                <div class="col-12"></div>
+                <div class="col-12 col-sm-6 col-md-4 column">
+                    <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-label>City</mat-label>
+                        <input formControlName="city" matInput>
+                    </mat-form-field>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4 column">
+                    <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-label>Postal</mat-label>
+                        <input formControlName="postal" matInput>
+                    </mat-form-field>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4 column">
+                    <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-label>Country</mat-label>
+                        <input formControlName="country" matInput>
+                    </mat-form-field>
+                </div>
+
+
+                <div class="col-12 column">
+                    <div class="submit-button-outer">
+                        <button [disabled]="form.invalid" (click)="createEmployee(f)"
+                                class="submit-button" mat-button>
+                            Submit
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <br>
+    <br>
+    <div class="new-form-outer">
+
+        <h2 class="sub-title">All Employees</h2>
+
+        <div class="list-outer">
+            <form #f="ngForm" [formGroup]="searchForm">
+                <div class="row row-outer">
+                    <div class="col-12 col-md-6 col-lg-3 column">
+                        <mat-form-field appearance="outline" class="example-full-width">
+                            <mat-label>Branch</mat-label>
+                            <mat-select formControlName="branch">
+                                <mat-option *ngFor="let b of branches"
+                                            [value]="b?.branchId">{{b?.branchName}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3 column">
+                        <mat-form-field appearance="outline" class="example-full-width">
+                            <mat-label>User Type</mat-label>
+                            <mat-select formControlName="userType">
+                                <mat-option *ngFor="let ut of userTypes"
+                                            [value]="ut?.userTypeId">{{ut?.userTypeName}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3 column">
+                        <mat-form-field appearance="outline" class="example-full-width">
+                            <mat-label>Employment State</mat-label>
+                            <mat-select formControlName="employmentState">
+                                <mat-option value="ALL">All</mat-option>
+                                <mat-option value="EMPLOYED">Employed</mat-option>
+                                <mat-option value="TERMINATED">Terminated</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3 column">
+                        <mat-form-field appearance="outline" class="example-full-width">
+                            <mat-label>Employee Availability</mat-label>
+                            <mat-select formControlName="employeeAvailability">
+                                <mat-option value="ALL">All</mat-option>
+                                <mat-option value="ENABLED">Enabled</mat-option>
+                                <mat-option value="DISABLED">Disabled</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </form>
+            <br>
+            <div class="table-outer">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <td>Configuration</td>
+                        <td>Id</td>
+                        <td>Name</td>
+                        <td>Email</td>
+                        <td>mobile</td>
+                        <td>Employment Status</td>
+                        <td>Active State</td>
+                        <td>Branch</td>
+                        <td>user Type</td>
+                        <td>Address</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let e of employees">
+                        <td class="table-col">
+                            <div class="td-inner">
+                                <div class="button-outer">
+                                    <button (click)="terminatePopUp(e?.employeeId,e?.employmentState)"
+                                            class="delete-button button">
+                                        <mat-icon>{{e?.employmentState ? 'report' : 'play_arrow'}}</mat-icon>
+                                    </button>
+                                    <button class="view-in-detail-button button" (click)="viewPopUp(e?.employeeId)">
+                                        <mat-icon>visibility</mat-icon>
+                                    </button>
+
+                                    <button (click)="DisablePopUp(e?.employeeId,e?.activeState)"
+                                            class="update-button button">
+                                        <mat-icon>{{e?.activeState ? 'close' : 'done'}}close</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="table-col">
+                            <div class="td-inner">
+                                {{e?.employeeId}}
+                            </div>
+                        </td>
+                        <td class="table-col">
+                            <div class="td-inner">
+                                {{e?.employeeName}}
+                            </div>
+                        </td>
+                        <td class="table-col">
+                            <div class="td-inner">
+                                {{e?.employeeEmail}}
+                            </div>
+                        </td>
+                        <td class="table-col">
+                            <div class="td-inner">
+                                {{e?.employeeMobile}}
+                            </div>
+                        </td>
+                        <td class="table-col">
+                            <div class="td-inner">
+                                {{e?.employmentState ? 'Employed' : 'Terminated'}}
+                            </div>
+                        </td>
+                        <td class="table-col">
+                            <div class="td-inner">
+                                {{e?.activeState ? 'Active' : 'Inactive'}}
+                            </div>
+                        </td>
+                        <td class="table-col">
+                            <div class="td-inner">
+                                {{e?.employeeId}}
+                            </div>
+                        </td>
+                        <td class="table-col">
+                            <div class="td-inner">
+                                {{e?.employeeId}}
+                            </div>
+                        </td>
+                        <td class="table-col">
+                            <div class="td-inner">
+                                {{e?.employeeId}}
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <mat-paginator (page)="pageEvent = getServerData($event)"
+                       [length]=dataCount
+                       [pageIndex]=page
+                       [pageSizeOptions]=pageSizeOptions
+                       [pageSize]=pageSize
+                       aria-label="Select page">
+        </mat-paginator>
+
+    </div>
+
+</div>

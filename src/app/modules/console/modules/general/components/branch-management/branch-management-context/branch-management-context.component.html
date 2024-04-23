@@ -1,0 +1,73 @@
+<div class="management-outer">
+    <h1 class="main-title">Branch Management</h1>
+    <br>
+    <div class="new-form-outer">
+
+        <h2 class="sub-title">Add New Branch</h2>
+
+        <form #f="ngForm" [formGroup]="form">
+            <div class="row">
+                <div class="col-12 col-sm-6 col-md-4 column">
+                    <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-label>Branch Name</mat-label>
+                        <input formControlName="branch" matInput>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-12 column">
+                    <div class="submit-button-outer">
+                        <button (click)="createBranch(f)"
+                                class="submit-button" mat-raised-button>
+                            Submit
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <br>
+    <br>
+    <div class="new-form-outer">
+
+        <h2 class="sub-title">All Branches</h2>
+
+        <div class="list-outer">
+            <div class="table-outer">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <td>Configuration</td>
+                        <td>Branch Id</td>
+                        <td>Branch Name</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let b of branches">
+                        <td class="table-col">
+                            <div class="td-inner">
+                                <div class="button-outer">
+                                    <button (click)="deletePopUp(b?.branchId)" class="delete-button button">
+                                        <mat-icon>delete_sweep</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="table-col">
+                            <div class="td-inner">
+                                {{b?.branchId}}
+                            </div>
+                        </td>
+                        <td class="table-col">
+                            <div class="td-inner">
+                                {{b?.branchName}}
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+</div>

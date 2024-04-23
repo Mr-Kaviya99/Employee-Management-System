@@ -1,62 +1,8 @@
-<!--
-<div class="login-page-outer">
-  <div class="container">
-    <div class="inner">
-      <div class="header">
-        <h3 class="logo">
-          Developers-Stack
-        </h3>
-      </div>
-      <div class="data-outer">
-        <div class="row">
-          <div class="col-12 col-md-7">
-
-          </div>
-          <div class="col-12 col-md-5">
-            <div class="data-set">
-              <h3 class="header-text">Welcome Back</h3>
-              <h6 class="title">
-                Please enter your email and password
-              </h6>
-
-              <form [formGroup]="loginForm" class="example-form" (ngSubmit)="login()">
-                <mat-form-field class="full-width" appearance="outline">
-                  <mat-label>Email</mat-label>
-                  <input formControlName="email" type="email" matInput placeholder="Ex. pat@example.com" autocomplete="disabled">
-                </mat-form-field>
-                <mat-form-field class="full-width" appearance="outline">
-                  <mat-label>Password</mat-label>
-                  <input formControlName="password" type="{{passwordState?'password':'text'}}" matInput autocomplete="disabled">
-                  <mat-icon class="icon" matSuffix (click)="passwordState=!passwordState">{{passwordState?'visibility_off':'visibility'}}</mat-icon>
-                </mat-form-field>
-
-                <p class="forget-pwd-text">
-                  <span routerLink="/security/forgot-password">
-                    Forgot Password?
-                  </span>
-                </p>
-                <button type="submit" mat-raised-button color="primary" [disabled]="loginForm.invalid">Login</button>
-              </form>
-
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
--->
 <div class="outer">
   <div class="inner">
-    <!--<h1 class="back-button">
-      <span routerLink="/process/home"> <mat-icon>keyboard_backspace</mat-icon>&nbsp; Home page</span>
-    </h1>-->
-
     <div class="login-context">
       <div class="left-side">
         <div class="shadow">
-
         </div>
       </div>
       <div class="right-side">
@@ -65,12 +11,12 @@
             <div class="login-element-outer">
               <h1 class="login-text">Login</h1>
               <p class="login-para">
-                You can manage everything, Login to DevelopersStack-Admin
+                You can manage everything, Login to Employee-Management-System
               </p>
               <br><br>
               <form [formGroup]="loginForm" (ngSubmit)="login()">
                 <div class="data-outer">
-                  <input formControlName="email" type="email" placeholder="user email here" autocomplete="off"
+                  <input matInput formControlName="email" type="email" placeholder="user email here" autocomplete="off"
                          autofill="off">
                 </div>
                 <br>
@@ -94,9 +40,6 @@
                 <div class="login-button-outer">
                   <button mat-raised-button [disabled]="loginForm.invalid" type="submit">Login</button>
                 </div>
-                <!--<div class="sign-up-outer">
-                  <h1 class="sign-up" >New to our platform? <span routerLink="/security/signup">Register now.</span></h1>
-                </div>-->
               </form>
             </div>
           </div>
